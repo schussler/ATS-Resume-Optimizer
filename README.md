@@ -7,10 +7,13 @@ Este é um projeto **opinativo** criado para o meu próprio currículo, mas foi 
 ## 📸 Demonstração
 
 ### 1. Entrada de Dados (Vaga & Currículo)
-![Tela de Input](./screenshots/input.png)
+![Tela de Input](<img width="805" height="813" alt="image" src="https://github.com/user-attachments/assets/9421c986-7612-4e0c-a230-8c3393ecf35e" />
+
+)
 
 ### 2. Análise de Gap & Otimização
-![Tela de Resultado](./screenshots/result.png)
+![Tela de Resultado](<img width="687" height="526" alt="image" src="https://github.com/user-attachments/assets/7e0b49b3-ddab-4308-ae5a-ca0d1ebcf1e8" />
+)
 
 ## 🌟 Funcionalidades
 
