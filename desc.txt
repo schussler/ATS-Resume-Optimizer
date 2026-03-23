@@ -106,7 +106,7 @@ Para se candidatar enviar currículo para o email analise adescriçao e gere um 
 
 * Conhecimento em HTML, CSS e JavaScript
 
-* Noções de frameworks (React, Vue ou Angular são diferenciais)
+* Noções de frameworks (React, Angular são diferenciais)
 
 * Entendimento básico de APIs
 

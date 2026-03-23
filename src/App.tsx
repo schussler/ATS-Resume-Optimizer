@@ -196,6 +196,8 @@ function App() {
             )}
 
             {/* No API key warning */}
+
+
             {!config.apiKey && (
               <div
                 style={{

@@ -217,6 +217,8 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({ config, onConfigCh
               </div>
             )}
 
+
+
             {/* Info notice */}
             <div
               style={{

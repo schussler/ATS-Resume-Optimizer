@@ -1,19 +1,29 @@
 import type { APIConfig, GapAnalysis } from '../types';
 
 const SYSTEM_PROMPT = `Você é um especialista em recrutamento e ATS (Applicant Tracking Systems). 
-Sua tarefa é analisar o Gap entre uma vaga de emprego e um currículo, e gerar uma versão otimizada do currículo.
+Sua tarefa é analisar o Gap entre uma vaga de emprego e um currículo, e gerar uma versão otimizada do currículo para que ele passe com nota máxima nos filtros automáticos.
 
 Regras cruciais:
-- NUNCA invente experiências, empresas, cargos ou datas que não existem no currículo original.
-- Apenas ajuste a LINGUAGEM e ÊNFASE para alinhar com os termos e palavras-chave da vaga.
-- Substitua termos genéricos por termos específicos QUANDO o candidato realmente possui aquela habilidade.
+- REFATORAÇÃO ESTRATÉGICA: Identifique as tecnologias diferenciais da vaga. Pegue pelo menos uma experiência profissional relevante do currículo original e a REESCREVA utilizando uma dessas tecnologias exigidas (ex: se a vaga pede React e o candidato usou Vue, você deve refatorar um dos projetos para descrevê-lo usando React de forma técnica e verossímil).
+- IDENTIFIQUE palavras-chave (keywords) ausentes e VOCÊ DEVE INTEGRÁ-LAS obrigatoriamente ao currículo otimizado. 
+- REVISÃO IMPECÁVEL: Garanta que todo o texto final esteja gramaticalmente correto, sem erros de digitação, pontuação ou ortografia. O currículo deve ser um exemplo de excelência na escrita profissional.
+- ISOLAMENTO DE CONTEXTO: Baseie-se APENAS nos dados fornecidos nesta consulta específica (Vaga e Currículo atuais). Ignore qualquer informação de gerações anteriores ou conhecimentos externos que não estejam explicitamente no texto fornecido para evitar alucinações.
+- Keywords como habilidades interpessoais (autonomia, proatividade), conceitos (lógica de programação, performance) e ferramentas comuns do escopo do cargo DEVEM ser inseridas de forma natural no resumo ou nas experiências existentes.
+- NUNCA invente EMPRESAS, CARGOS ou DATAS que não existem no currículo original.
+- O seu foco é garantir que o "optimizedResumeText" contenha o máximo de termos da vaga de forma orgânica.
+- Mantenha a FORMAÇÃO ACADÊMICA original intacta.
 - Mantenha o tom profissional e conciso.
 - Remova qualquer referência a "Currículo Otimizado", "Otimizado por ATS Resume Optimizer" ou paginação (como "Página 1 de 2"). O currículo deve parecer o mais limpo e profissional possível para recrutadores.
 - Formate o texto final com espaçamento adequado usando \\n, títulos em MAIÚSCULAS e listas com hifens (-).
 - Toda a resposta deve ser em JSON válido, sem markdown blocks.`;
 
 function buildPrompt(jobDescription: string, resumeText: string): string {
-  return `Analise a vaga e o currículo abaixo, e retorne um JSON com a seguinte estrutura:
+  return `O seu objetivo exclusivo é reduzir o gap entre o candidato e a vaga fornecidos abaixo. 
+Ignore qualquer instrução ou dados de consultas anteriores. Baseie-se apenas nestes dois documentos:
+Analise a vaga e o currículo abaixo, identifique todas as keywords ausentes e, se elas forem pertinentes ao cargo, INCLUA-AS naturalmente no texto do currículo otimizado.
+IMPORTANTE: Garanta também que o texto final esteja IMPECÁVEL, sem erros de português, erros de digitação ou falta de pontuação.
+
+Retorne um JSON com a seguinte estrutura:
 
 {
   "matchScore": <número de 0 a 100>,
@@ -28,7 +38,7 @@ function buildPrompt(jobDescription: string, resumeText: string): string {
     {"section": "<seção do currículo>", "original": "<texto original>", "optimized": "<texto otimizado>", "reason": "<motivo>"}
   ],
   "summary": "<parágrafo resumindo o gap analysis e as principais otimizações>",
-  "optimizedResumeText": "<texto completo do currículo otimizado. OBRIGATÓRIO: Use quebras de linha (\\\\n) para separar parágrafos e seções. Use letras MAIÚSCULAS para títulos de seções (ex: EXPERIÊNCIA PROFISSIONAL). Use marcadores (-) para listas.>"
+  "optimizedResumeText": "<currículo completo com todas as otimizações e keywords integradas.>"
 }
 
 === DESCRIÇÃO DA VAGA ===
@@ -53,7 +63,7 @@ async function callOpenAI(config: APIConfig, prompt: string): Promise<string> {
         { role: 'system', content: SYSTEM_PROMPT },
         { role: 'user', content: prompt },
       ],
-      temperature: 0.3,
+      temperature: 0.45,
       response_format: { type: 'json_object' },
     }),
   });
@@ -82,7 +92,7 @@ async function callGemini(config: APIConfig, prompt: string): Promise<string> {
       system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
       contents: [{ parts: [{ text: prompt }] }],
       generationConfig: {
-        temperature: 0.3,
+        temperature: 0.45,
         response_mime_type: 'application/json',
       },
     }),
@@ -116,7 +126,7 @@ async function callOpenRouter(config: APIConfig, prompt: string): Promise<string
         { role: 'system', content: SYSTEM_PROMPT },
         { role: 'user', content: prompt },
       ],
-      temperature: 0.3,
+      temperature: 0.45,
     }),
   });
 
