@@ -26,6 +26,18 @@ Este é um projeto **opinativo** criado para o meu próprio currículo, mas foi 
 4. Clique em **Analisar e Otimizar**.
 5. Baixe seu novo currículo pronto para o mercado!
 
+## 🌍 Hospedagem na Netlify
+
+O projeto é uma aplicação puramente estática, o que torna a hospedagem na Netlify extremamente simples:
+
+1. **Conecte seu Repositório**: Vá ao painel da Netlify e conecte seu repositório do GitHub/GitLab.
+2. **Configurações de Build**:
+   - **Build Command**: `npm run build`
+   - **Publish Directory**: `dist`
+3. **Deploy**: Clique em "Deploy" e a Netlify gerará uma URL pública para você.
+
+**Dica de Segurança**: Como o projeto armazena suas API Keys no `localStorage` do seu navegador, qualquer pessoa que acessar a sua URL terá que configurar a própria chave para usar. Isso garante que ninguém use os seus créditos de IA por engano.
+
 ## 🤝 Contribuições
 
 Este projeto nasceu da ideia de ajudar pessoas que, assim como eu, estão em busca de novas oportunidades e querem aumentar suas chances de serem chamadas para entrevistas.
