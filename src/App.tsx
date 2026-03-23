@@ -332,15 +332,48 @@ function App() {
       <footer
         style={{
           borderTop: '1px solid var(--border)',
-          padding: '20px 24px',
+          padding: '28px 24px',
           textAlign: 'center',
-          fontSize: '0.78rem',
+          fontSize: '0.82rem',
           color: 'var(--text-muted)',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '12px',
         }}
       >
-        <p>
-          ATS Resume Optimizer — Toda a IA processa no seu browser. Suas chaves de API nunca passam por servidores nossos.
+        <p style={{ maxWidth: '600px', lineHeight: 1.5 }}>
+          ATS Resume Optimizer — Todo o processamento de IA ocorre diretamente no seu navegador. 
+          Suas chaves de API e arquivos nunca saem da sua máquina.
         </p>
+        
+        <div style={{ 
+          display: 'flex', 
+          alignItems: 'center', 
+          gap: '12px',
+          marginTop: '4px',
+          background: 'rgba(255,255,255,0.03)',
+          padding: '8px 16px',
+          borderRadius: '100px',
+          border: '1px solid var(--border)',
+        }}>
+          <span>Contribua com o projeto:</span>
+          <a
+            href="https://github.com/schussler/ATS-Resume-Optimizer"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              color: 'var(--accent-light)',
+              textDecoration: 'none',
+              fontWeight: 700,
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+            }}
+          >
+            github.com/schussler/ATS-Resume-Optimizer
+          </a>
+        </div>
       </footer>
     </div>
   );
