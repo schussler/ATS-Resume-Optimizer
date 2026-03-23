@@ -8,12 +8,6 @@ export default defineConfig({
     exclude: ['pdfjs-dist'],
   },
   server: {
-    proxy: {
-      '/api/openai': {
-        target: 'https://api.openai.com',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api\/openai/, ''),
-      },
-    },
+    host: true,
   },
 })

@@ -1,73 +1,37 @@
-# React + TypeScript + Vite
+# ATS Resume Optimizer 🚀
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+O **ATS Resume Optimizer** é uma aplicação web de página única (SPA) projetada para ajudar candidatos a otimizar seus currículos para sistemas de rastreamento de candidatos (ATS). Ele analisa a lacuna (gap) entre a descrição de uma vaga e o seu currículo atual, gerando uma versão otimizada com alta densidade de palavras-chave e metadados estratégicos.
 
-Currently, two official plugins are available:
+Este é um projeto **opinativo** criado para o meu próprio currículo, mas foi desenvolvido de forma modular para que possa ser facilmente adaptado por qualquer pessoa.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🌟 Funcionalidades
 
-## React Compiler
+- **Análise de Gap em Tempo Real**: Identifica keywords presentes e ausentes.
+* **Otimização Inteligente**: Integra automaticamente habilidades e tecnologias exigidas no texto do currículo.
+- **Refatoração Estratégica**: Reescreve experiências profissionais para destacar tecnologias específicas da vaga.
+- **Hacking de Metadados**: Configura campos internos do PDF (`DC.title`, `CP.keywords`, etc.) para maximizar o score em algoritmos de recrutamento.
+- **Privacidade Total**: Suas API Keys e dados são armazenados localmente no seu navegador (`localStorage`). Nada é enviado para um servidor central, exceto para as APIs de IA configuradas.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🛠️ Tecnologias Utilizadas
 
-## Expanding the ESLint configuration
+- **Frontend**: React + Vite + Tailwind CSS
+- **PDF Processing**: `pdf-lib` e `pdfjs-dist`
+- **IA**: OpenAI (GPT-4o), Google Gemini, ou qualquer modelo via OpenRouter
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 📄 Como Usar
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+1. Clone o repositório.
+2. Configure sua API Key no painel de configurações (ícone de engrenagem).
+3. Cole a descrição da vaga e faça o upload do seu currículo em PDF.
+4. Clique em **Analisar e Otimizar**.
+5. Baixe seu novo currículo pronto para o mercado!
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🤝 Contribuições
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Este projeto nasceu da ideia de ajudar pessoas que, assim como eu, estão em busca de novas oportunidades e querem aumentar suas chances de serem chamadas para entrevistas.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Aceitamos contribuições para melhorias na lógica de análise, novos designs ou suporte a mais formatos. Sinta-se à vontade para abrir uma issue ou enviar um pull request!
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Desenvolvido com ❤️ para ajudar a comunidade de tecnologia.
