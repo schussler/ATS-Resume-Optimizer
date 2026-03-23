@@ -39,9 +39,9 @@ export const ResultsView: React.FC<ResultsViewProps> = ({ analysis, onReset }) =
   const handleDownload = async () => {
     setGenerating(true);
     try {
-      const bytes = await generateOptimizedPDF(analysis.optimizedResumeText);
-      const filename = analysis.jobTitle 
-        ? `curriculo-otimizado-${analysis.jobTitle.toLowerCase().replace(/\s+/g, '-')}.pdf`
+      const bytes = await generateOptimizedPDF(analysis);
+      const filename = analysis.pdfMetadata.title
+        ? `curriculo-${analysis.pdfMetadata.title.toLowerCase().replace(/\s+/g, '-')}.pdf`
         : 'curriculo-otimizado.pdf';
       downloadPDF(bytes, filename);
     } catch (err) {

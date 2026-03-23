@@ -1,9 +1,23 @@
 import { PDFDocument, StandardFonts, rgb, PDFFont } from 'pdf-lib';
+import type { GapAnalysis } from '../types';
 
 export async function generateOptimizedPDF(
-  resumeText: string
+  analysis: GapAnalysis
 ): Promise<Uint8Array> {
   const pdfDoc = await PDFDocument.create();
+  const resumeText = analysis.optimizedResumeText;
+  const meta = analysis.pdfMetadata;
+
+  // Set ATS Specific Metadata
+  pdfDoc.setTitle(meta.title);
+  pdfDoc.setAuthor(meta.author);
+  pdfDoc.setSubject(meta.subject);
+  pdfDoc.setKeywords(meta.keywords);
+  pdfDoc.setProducer(meta.producer);
+  pdfDoc.setCreator(meta.creator);
+  pdfDoc.setCreationDate(new Date());
+  pdfDoc.setModificationDate(new Date());
+
   const regularFont = await pdfDoc.embedFont(StandardFonts.Helvetica);
   const boldFont = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
 

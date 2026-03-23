@@ -19,9 +19,19 @@ export interface ChangeItem {
   reason: string;
 }
 
+export interface PDFMetadata {
+  title: string;
+  author: string;
+  subject: string;
+  keywords: string[];
+  producer: string;
+  creator: string;
+}
+
 export interface GapAnalysis {
   matchScore: number;
   jobTitle: string;
+  candidateName: string;
   totalKeywords: number;
   matchedKeywords: number;
   missingKeywords: number;
@@ -29,6 +39,7 @@ export interface GapAnalysis {
   changes: ChangeItem[];
   summary: string;
   optimizedResumeText: string;
+  pdfMetadata: PDFMetadata;
 }
 
 export type AppStep = 'input' | 'processing' | 'result';

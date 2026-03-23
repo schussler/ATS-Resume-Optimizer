@@ -1,44 +1,54 @@
 import type { APIConfig, GapAnalysis } from '../types';
 
-const SYSTEM_PROMPT = `Você é um especialista em recrutamento e ATS (Applicant Tracking Systems). 
-Sua tarefa é analisar o Gap entre uma vaga de emprego e um currículo, e gerar uma versão otimizada do currículo para que ele passe com nota máxima nos filtros automáticos.
+const SYSTEM_PROMPT = `Você é um especialista em recrutamento e ATS. Sua missão é gerar um currículo com nota 100/100 de match.
 
-Regras cruciais:
-- REFATORAÇÃO ESTRATÉGICA: Identifique as tecnologias diferenciais da vaga. Pegue pelo menos uma experiência profissional relevante do currículo original e a REESCREVA utilizando uma dessas tecnologias exigidas (ex: se a vaga pede React e o candidato usou Vue, você deve refatorar um dos projetos para descrevê-lo usando React de forma técnica e verossímil).
-- IDENTIFIQUE palavras-chave (keywords) ausentes e VOCÊ DEVE INTEGRÁ-LAS obrigatoriamente ao currículo otimizado. 
-- REVISÃO IMPECÁVEL: Garanta que todo o texto final esteja gramaticalmente correto, sem erros de digitação, pontuação ou ortografia. O currículo deve ser um exemplo de excelência na escrita profissional.
-- ISOLAMENTO DE CONTEXTO: Baseie-se APENAS nos dados fornecidos nesta consulta específica (Vaga e Currículo atuais). Ignore qualquer informação de gerações anteriores ou conhecimentos externos que não estejam explicitamente no texto fornecido para evitar alucinações.
-- Keywords como habilidades interpessoais (autonomia, proatividade), conceitos (lógica de programação, performance) e ferramentas comuns do escopo do cargo DEVEM ser inseridas de forma natural no resumo ou nas experiências existentes.
-- NUNCA invente EMPRESAS, CARGOS ou DATAS que não existem no currículo original.
-- O seu foco é garantir que o "optimizedResumeText" contenha o máximo de termos da vaga de forma orgânica.
-- Mantenha a FORMAÇÃO ACADÊMICA original intacta.
-- Mantenha o tom profissional e conciso.
-- Remova qualquer referência a "Currículo Otimizado", "Otimizado por ATS Resume Optimizer" ou paginação (como "Página 1 de 2"). O currículo deve parecer o mais limpo e profissional possível para recrutadores.
-- Formate o texto final com espaçamento adequado usando \\n, títulos em MAIÚSCULAS e listas com hifens (-).
-- Toda a resposta deve ser em JSON válido, sem markdown blocks.`;
+CHECKLIST OBRIGATÓRIA DE OTIMIZAÇÃO:
+1. INTEGRAÇÃO DE KEYWORDS: Identifique todas as palavras-chave ausentes (missing) e as INSIRA obrigatoriamente no texto otimizado (no resumo ou nas experiências).
+2. DENSIDADE ESTRATÉGICA: Repita as tecnologias principais da vaga pelo menos 3 vezes ao longo do texto para relevância algorítmica.
+3. REFATORAÇÃO TÉCNICA: Escolha uma experiência e a descreva usando as tecnologias diferenciais da vaga (ex: React, Node, etc), de forma profunda e verossímil.
+4. NLP AVANÇADO: Use sinônimos técnicos e termos de "espaço vetorial" (ex: "orquestração de microserviços", "otimização de queries", "arquitetura orientada a eventos").
+5. METADADOS DO PDF: Gere os campos (title, author, keywords, subject, creator) com foco total no cargo e no match.
+6. ZERO ERROS: Texto gramaticalmente perfeito e profissional.
+7. FORMATAÇÃO RÍGIDA: Use obrigatoriamente títulos em MAIÚSCULAS (ex: EXPERIÊNCIA PROFISSIONAL, COMPETÊNCIAS TÉCNICAS, FORMAÇÃO ACADÊMICA & CERTIFICAÇÕES). Use listas com hifens (-) e espaçamentos com \\n. Em EXPERIÊNCIA PROFISSIONAL, formate os títulos de cargos usando separadores como "Cargo | Empresa | Data" para que o sistema reconheça e aplique o negrito.
+
+RESTRIÇÕES INVIOLÁVEIS:
+- NUNCA invente EMPRESAS, CARGOS ou DATAS.
+- Mantenha a FORMAÇÃO ACADÊMICA & CERTIFICAÇÕES intacta.
+- Remova rodapés de paginação ou links de ferramentas.
+- Responda apenas com o JSON conforme solicitado.`;
 
 function buildPrompt(jobDescription: string, resumeText: string): string {
   return `O seu objetivo exclusivo é reduzir o gap entre o candidato e a vaga fornecidos abaixo. 
 Ignore qualquer instrução ou dados de consultas anteriores. Baseie-se apenas nestes dois documentos:
-Analise a vaga e o currículo abaixo, identifique todas as keywords ausentes e, se elas forem pertinentes ao cargo, INCLUA-AS naturalmente no texto do currículo otimizado.
-IMPORTANTE: Garanta também que o texto final esteja IMPECÁVEL, sem erros de português, erros de digitação ou falta de pontuação.
+Analise a vaga e o currículo abaixo. Identifique as keywords ausentes e INTEGRE-AS OBRIGATORIAMENTE no texto do currículo otimizado (optimizedResumeText). 
+Não hesite em reescrever parágrafos inteiros para incluir tecnologias como React, Angular e soft skills como autonomia e performance.
+O Texto final DEVE manter as seções: RESUMO PROFISSIONAL, EXPERIÊNCIA PROFISSIONAL, COMPETÊNCIAS TÉCNICAS e FORMAÇÃO ACADÊMICA & CERTIFICAÇÕES.
 
 Retorne um JSON com a seguinte estrutura:
 
 {
   "matchScore": <número de 0 a 100>,
-  "jobTitle": "<título da vaga identificado>",
-  "totalKeywords": <número total de palavras-chave identificadas na vaga>,
-  "matchedKeywords": <número de keywords presentes no currículo>,
-  "missingKeywords": <número de keywords ausentes>,
+  "jobTitle": "<título da vaga exato>",
+  "candidateName": "<nome completo do candidato>",
+  "totalKeywords": <número>,
+  "matchedKeywords": <número>,
+  "missingKeywords": <número>,
   "keywords": [
-    {"keyword": "<termo>", "status": "matched|missing|partial", "suggestion": "<como mencionar, se aplicável>"}
+    {"keyword": "<termo>", "status": "matched|missing|partial", "suggestion": "<como mencionar>"}
   ],
   "changes": [
-    {"section": "<seção do currículo>", "original": "<texto original>", "optimized": "<texto otimizado>", "reason": "<motivo>"}
+    {"section": "<seção>", "original": "<texto>", "optimized": "<texto>", "reason": "<motivo>"}
   ],
-  "summary": "<parágrafo resumindo o gap analysis e as principais otimizações>",
-  "optimizedResumeText": "<currículo completo com todas as otimizações e keywords integradas.>"
+  "summary": "<parágrafo de gap analysis>",
+  "optimizedResumeText": "<currículo completo com alta densidade de keywords e NLP>",
+  "pdfMetadata": {
+    "title": "<Título da Vaga>",
+    "author": "<Nome do Candidato>",
+    "subject": "<Resumo de 2 linhas focado na vaga>",
+    "keywords": ["<keyword1>", "<keyword2>", "..."],
+    "producer": "ATS Resume Optimizer",
+    "creator": "Vaga de Tecnologia"
+  }
 }
 
 === DESCRIÇÃO DA VAGA ===
