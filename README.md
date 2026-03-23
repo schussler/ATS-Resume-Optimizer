@@ -4,6 +4,14 @@ O **ATS Resume Optimizer** é uma aplicação web de página única (SPA) projet
 
 Este é um projeto **opinativo** criado para o meu próprio currículo, mas foi desenvolvido de forma modular para que possa ser facilmente adaptado por qualquer pessoa.
 
+## 📸 Demonstração
+
+### 1. Entrada de Dados (Vaga & Currículo)
+![Tela de Input](./screenshots/input.png)
+
+### 2. Análise de Gap & Otimização
+![Tela de Resultado](./screenshots/result.png)
+
 ## 🌟 Funcionalidades
 
 - **Análise de Gap em Tempo Real**: Identifica keywords presentes e ausentes.
