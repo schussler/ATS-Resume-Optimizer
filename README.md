@@ -12,7 +12,8 @@ Este é um projeto **opinativo** criado para o meu próprio currículo, mas foi 
 )
 
 ### 2. Análise de Gap & Otimização
-![Tela de Resultado](<img width="687" height="526" alt="image" src="https://github.com/user-attachments/assets/7e0b49b3-ddab-4308-ae5a-ca0d1ebcf1e8" />
+![Tela de Resultado](<img width="687" height="526" alt="image" src="https://github.com/user-attachments/assets/7e0b49b3-ddab-4308-ae5a-ca0d1ebcf1e8"  />
+
 )
 
 ## 🌟 Funcionalidades
